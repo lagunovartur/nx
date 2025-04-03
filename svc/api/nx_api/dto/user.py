@@ -1,8 +1,8 @@
-from typing import Literal
 from uuid import UUID
-import nx_api.infra.db.models as m
+
 import pydantic as pd
 
+import nx_api.infra.db.models as m
 from nx_api.utils.pydantic.base_model import BaseModel
 from nx_api.utils.pydantic.validators import Email, Phone, Password
 

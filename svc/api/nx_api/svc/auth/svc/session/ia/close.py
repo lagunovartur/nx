@@ -19,9 +19,9 @@ class CloseSessIA:
         session_id: UUID | None = None,
         status: m.SessStatus = m.SessStatus.COMPLETED,
     ) -> None:
+        self._jwt_setter.unset()
         if session_id:
             await self._sess_repo.update(session_id, status=status)
 
         await self._db_sess.commit()
 
-        self._jwt_setter.unset()

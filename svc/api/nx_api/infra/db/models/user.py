@@ -9,6 +9,7 @@ from nx_api.infra.db.models.mixins import UuidPk, Timestamp
 
 if TYPE_CHECKING:
     from .auth_sess import AuthSess
+    from .lead import Lead
 
 
 class User(Base, UuidPk, Timestamp):
@@ -22,7 +23,11 @@ class User(Base, UuidPk, Timestamp):
     email_verified: orm.Mapped[bool] = mapped_column(
         sa.Boolean, nullable=False, server_default=sa.text("false")
     )
-
     sessions: orm.Mapped[list["AuthSess"]] = orm.relationship(
         back_populates="user", lazy="noload"
     )
+    leads: orm.Mapped[list["Lead"]] = orm.relationship(
+        back_populates="user", lazy="noload"
+    )
+
+
