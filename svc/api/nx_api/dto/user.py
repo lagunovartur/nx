@@ -18,12 +18,14 @@ class UserBase(BaseUser):
 
 
 class NewUser(BaseUser):
+    id: UUID | None = None
     password: Password
 
     model_config = pd.ConfigDict(
         json_schema_extra={
             "examples": [
                 {
+                    "id": "05095dd9-57d2-4911-9b1d-638a60bdd653",
                     "email": "lagunovartur@inbox.ru",
                     "phone": "78524569685",
                     "password": "Qwerty!1",

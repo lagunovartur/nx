@@ -49,7 +49,7 @@ class CrudSvc(ICrudSvc, Generic[C, R, U, RP]):
             obj = await self._repo.get(id_)
             self._db_sess.expunge(obj)
             cur_obj = copy.deepcopy(obj)
-            obj = await self._repo.update(obj, **dto.model_dump())
+            obj = await self._repo.update(obj, **dto.model_dump(exclude_unset=True))
 
         await self._before_flush(obj, dto, cur_obj)
         await self._db_sess.flush()
