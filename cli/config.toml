@@ -1,0 +1,6 @@
+[path]
+compose = 'svc/docker-compose.yml'
+db_dump = '/bitnami/postgresql/dumps'
+
+[svc_src]
+api = ['mg_api', 'tests']

@@ -1,0 +1,51 @@
+name: mango
+
+services:
+
+  api:
+    container_name: nx_api
+    image: lagunovartur/nx_api
+    env_file: .env
+    build:
+      context: ./api
+      args:
+        BE_INSTALL_DEV: ${AP_INSTALL_DEV}
+    depends_on:
+      - db
+    volumes:
+      - ./api:/src
+    ports:
+      - ${AP_EXT_PORT}:${AP_PORT}
+    environment:
+      - AP_HOST=localhost
+    networks:
+      - mg
+
+  db:
+    container_name: mg_db
+    image: bitnami/postgresql:latest
+    env_file: .env
+    restart: always
+    user: root
+    volumes:
+      - ../volumes/db:/bitnami/postgresql
+    ports:
+      - ${DB_EXT_PORT}:${DB_PORT}
+    environment:
+      - POSTGRES_USERNAME=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_DATABASE=${DB_NAME}
+      - POSTGRES_HOST_AUTH_METHOD= "trust"
+      - POSTGRESQL_POSTGRES_PASSWORD= ${DB_PASS}
+    networks:
+      - mg
+
+
+
+
+networks:
+  mg:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.231.0/24

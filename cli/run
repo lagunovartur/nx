@@ -1,0 +1,55 @@
+#!/usr/bin/env python3
+import os
+import sys
+
+from commands.al import al, al_rev, al_up, al_down
+from commands.chk import chk_style, chk_mypy, chk, chk_test
+from commands.db import db_dump, db_restore, db_shell
+from commands.dc import dc, dc_attach
+from commands.fmt import fmt
+from commands.git import git
+from commands.init import in_hook, in_unhook, init, in_link
+from manager import CommandManager
+
+
+def setup_root():
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    sys.path.insert(0, script_dir)
+
+
+def main():
+    setup_root()
+
+    manager = CommandManager()
+
+    manager['dc'] = dc
+    manager['dc-attach'] = dc_attach
+
+    manager['git'] = git
+
+    manager['al'] = al
+    manager['al-rev'] = al_rev
+    manager['al-up'] = al_up
+    manager['al-down'] = al_down
+
+    manager['chk'] = chk
+    manager['chk-style'] = chk_style
+    manager['chk-mypy'] = chk_mypy
+    manager['chk-test'] = chk_test
+
+    manager['fmt'] = fmt
+
+    manager['db-shell'] = db_shell
+    manager['db-dump'] = db_dump
+    manager['db-restore'] = db_restore
+
+    manager['in'] = init
+    manager['in-link'] = in_link
+    manager['in-hook'] = in_hook
+    manager['in-unhook'] = in_unhook
+
+    manager()
+
+
+if __name__ == '__main__':
+    main()

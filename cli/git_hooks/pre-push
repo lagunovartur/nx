@@ -1,0 +1,12 @@
+#!/bin/sh
+
+check() {
+
+    if ! ./cli/run chk; then
+        echo "'make check' failed. Please fix the issues before pushing."
+        exit 1
+    fi
+
+}
+
+check
