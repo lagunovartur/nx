@@ -40,6 +40,14 @@ services:
     networks:
       - nx
 
+  redis:
+    container_name: nx_redis
+    image: redis
+    ports:
+      - ${RS_EXT_PORT}:${RS_PORT}
+    networks:
+      - nx
+
 
 networks:
   nx:
