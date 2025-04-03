@@ -1,14 +1,11 @@
 import datetime as dt
-from dataclasses import dataclass, field
 from enum import StrEnum
 
-from pydantic import ConfigDict
+from pydantic import ConfigDict, Field
 
 import nx_api.infra.db.models as m
-
 from nx_api.utils.pydantic.base_model import BaseModel
 from nx_api.utils.pydantic.validators import UUID
-
 from .user import UserBase
 from ..svc.crud.types_ import BaseLP
 
@@ -69,7 +66,6 @@ class ListOrder(StrEnum):
     name = "name__asc"
 
 
-@dataclass
 class LeadLP(BaseLP):
     user_id__in: list[UUID] | None = None
-    order: list[ListOrder] = field(default_factory=list)
+    order: list[ListOrder] = Field(default_factory=list)

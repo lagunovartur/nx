@@ -20,3 +20,6 @@ nx dc down
 
 ### swagger
 https://localhost:41901/docs
+
+### Демонстрация
+https://drive.google.com/file/d/1FbkK45GdlX79_xOF0NWZlPLumre-FxIa/view?usp=sharing
