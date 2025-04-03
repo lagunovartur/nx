@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "mango"
+name = "nx"
 version = "0.1.0"
 description = ""
 authors = ["Артур Лагунов <lagunovartur@inbox.ru>"]

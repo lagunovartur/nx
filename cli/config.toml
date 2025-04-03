@@ -1,5 +1,5 @@
 [cmd]
-cli = 'fr'
+cli = 'nx'
 
 [path]
 compose = 'svc/docker-compose.yml'
