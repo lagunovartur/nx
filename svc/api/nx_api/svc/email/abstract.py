@@ -4,8 +4,8 @@ from typing_extensions import TypeAlias
 
 Email: TypeAlias = str
 
-class ISendMail(ABC):
 
+class ISendMail(ABC):
     @abstractmethod
     async def __call__(
         self,

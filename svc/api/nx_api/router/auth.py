@@ -39,6 +39,7 @@ async def logout(
 ):
     return await ia()
 
+
 @router.post(
     "/refresh",
 )
@@ -53,8 +54,8 @@ async def token_pair(
     response_model=None,
 )
 async def verify_email(
-        dto: d.EmailReq,
-        ia: Depends[VerifyEmailIA],
+    dto: d.EmailReq,
+    ia: Depends[VerifyEmailIA],
 ):
     return await ia(dto.email)
 
@@ -64,7 +65,7 @@ async def verify_email(
     response_model=None,
 )
 async def verify_email_end(
-        token: str,
-        ia: Depends[VerifyEmailEndIA],
+    token: str,
+    ia: Depends[VerifyEmailEndIA],
 ):
     return await ia(token)

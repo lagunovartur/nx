@@ -26,7 +26,7 @@ class NewUser(BaseUser):
                 {
                     "email": "lagunovartur@inbox.ru",
                     "phone": "78524569685",
-                    "password": "Qwerty!1"
+                    "password": "Qwerty!1",
                 },
             ]
         }

@@ -18,11 +18,12 @@ class UrlPayload(BaseModel, Generic[T]):
 
 
 class IUrlTokenSvc(ABC):
-
     @abstractmethod
     async def encode(self, payload: T) -> str:
         pass
 
     @abstractmethod
-    async def decode(self, token: str, payload_type: Type[T], ttl: int = 15) -> UrlPayload[T]:
+    async def decode(
+        self, token: str, payload_type: Type[T], ttl: int = 15
+    ) -> UrlPayload[T]:
         pass
