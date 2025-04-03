@@ -123,4 +123,4 @@ nx db-reset_test
 
 # Сервисы
 ## api swagger
-https://localhost:42401/swagger
+https://localhost:41901/swagger
