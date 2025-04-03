@@ -5,6 +5,7 @@ from fastapi import APIRouter
 import nx_api.dto as d
 from nx_api.svc.auth.ia.login import LoginIA
 from nx_api.svc.auth.ia.logout import LogoutIA
+from nx_api.svc.auth.ia.refresh_tokens import RefreshTokensIA
 from nx_api.svc.auth.ia.register import RegisterIA
 
 router = APIRouter(route_class=DishkaRoute, prefix="/auth", tags=["auth"])
@@ -33,5 +34,13 @@ async def login(
 )
 async def logout(
     ia: Depends[LogoutIA],
+):
+    return await ia()
+
+@router.post(
+    "/refresh",
+)
+async def token_pair(
+    ia: Depends[RefreshTokensIA],
 ):
     return await ia()
