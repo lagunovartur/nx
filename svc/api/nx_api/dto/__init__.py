@@ -1,2 +1,2 @@
 from .user import User, NewUser, UserBase, EditUser
-from .auth import Login
+from .auth import Login, EmailReq

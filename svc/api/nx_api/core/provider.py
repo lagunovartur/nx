@@ -4,7 +4,7 @@ from fastapi import Depends
 from uvicorn import Config as UvicornConfig
 from uvicorn import Server as UvicornServer
 from typing import NewType
-
+from jinja2 import Environment, FileSystemLoader
 from nx_api.core.config import ApiConfig
 from nx_api.core.di_proxy import DiProxy
 from nx_api.core.lifespan import lifespan
@@ -12,6 +12,8 @@ from nx_api.core.middleware import add_middleware
 from nx_api.exc.handlers import add_exc_handlers
 from nx_api.svc.auth.guard import AuthGuard
 from nx_api.router import root_router
+from nx_api.svc.email.abstract import ISendMail
+from nx_api.svc.email.smtp_send import SmtpSend
 
 AppContainer = NewType("AppContainer", AsyncContainer)
 
@@ -67,3 +69,10 @@ class CoreProv(Provider):
     @provide(scope=Scope.REQUEST)
     def response(self, request: Request) -> Response:
         return getattr(request.state, "response")
+
+    @provide(scope=Scope.APP)
+    def jinja_tmpls(self) -> Environment:
+        loader = FileSystemLoader("fr_api/tmpls")
+        return Environment(loader=loader)
+
+    send_mail = provide(SmtpSend, scope=Scope.REQUEST, provides=ISendMail)
