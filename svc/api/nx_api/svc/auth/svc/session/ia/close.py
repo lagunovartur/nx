@@ -24,4 +24,3 @@ class CloseSessIA:
             await self._sess_repo.update(session_id, status=status)
 
         await self._db_sess.commit()
-

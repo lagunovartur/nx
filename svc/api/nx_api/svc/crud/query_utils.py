@@ -1,8 +1,8 @@
 import operator
 import sqlalchemy as sa
 
-class QueryUtils:
 
+class QueryUtils:
     @staticmethod
     def parse_filters(model, filters: dict):
         operators = {
@@ -30,7 +30,6 @@ class QueryUtils:
 
     @staticmethod
     def parse_sort(model, order: list[str]):
-
         m_order = []
         operators = {
             "asc": sa.asc,

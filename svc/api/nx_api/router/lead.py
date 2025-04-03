@@ -3,4 +3,3 @@ from nx_api.svc.lead.svc import LeadSvc, LeadList
 
 router = crud_router(LeadSvc)
 add_list_route(router, LeadList)
-

@@ -29,5 +29,3 @@ class User(Base, UuidPk, Timestamp):
     leads: orm.Mapped[list["Lead"]] = orm.relationship(
         back_populates="user", lazy="noload"
     )
-
-

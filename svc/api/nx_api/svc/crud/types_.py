@@ -10,9 +10,15 @@ class PageParams(BaseModel):
     offset: int = 0
     limit: int = 10
 
+
 class BaseLP(PageParams):
     search: str | None = None
-    order: List[str] = Field(default_factory=list, examples=['created_at__desc',])
+    order: List[str] = Field(
+        default_factory=list,
+        examples=[
+            "created_at__desc",
+        ],
+    )
 
 
 C = TypeVar("C", bound=BaseModel)

@@ -42,8 +42,6 @@ class NewLead(BaseLead):
     )
 
 
-
-
 class EditLead(BaseLead):
     id: UUID
     name: str | None = None
@@ -60,7 +58,6 @@ class EditLead(BaseLead):
             ]
         }
     )
-
 
 
 class Lead(LeadBase):
