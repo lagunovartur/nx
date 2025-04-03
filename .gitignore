@@ -144,7 +144,7 @@ sonarqube
 /zk-data/
 /zk-txn-logs/
 
-**/ssl/*
+#**/ssl/*
 
 
 /git_ignored
