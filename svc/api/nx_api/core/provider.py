@@ -72,7 +72,7 @@ class CoreProv(Provider):
 
     @provide(scope=Scope.APP)
     def jinja_tmpls(self) -> Environment:
-        loader = FileSystemLoader("fr_api/tmpls")
+        loader = FileSystemLoader("nx_api/tmpls")
         return Environment(loader=loader)
 
     send_mail = provide(SmtpSend, scope=Scope.REQUEST, provides=ISendMail)
