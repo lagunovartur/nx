@@ -29,13 +29,14 @@ class ListSvc(IListSvc, Generic[R, M, LP]):
 
         params = params.model_dump(exclude_none=True)
         search = params.pop("search", None)
+        order = params.pop("order", None)
         pagination = PageParams(limit=params.pop("limit"), offset=params.pop("offset"))
 
         if search:
             await self._apply_search(search)
 
         await self._apply_filters(params)
-        await self._apply_order(None)
+        await self._apply_order(order)
 
         count = await self._count()
         await self._paginate(pagination)
@@ -54,9 +55,13 @@ class ListSvc(IListSvc, Generic[R, M, LP]):
         objects = res.scalars().all()
         return objects
 
-    async def _apply_order(self, order) -> None:
-        if attr := getattr(self._M, "created_at", None):
-            self._stmt = self._stmt.order_by(desc(attr))
+    async def _apply_order(self, order: list[str]) -> None:
+        if order:
+            order = QueryUtils.parse_sort(self._M, order)
+            self._stmt = self._stmt.order_by(*order)
+        else:
+            if attr := getattr(self._M, "created_at", None):
+                self._stmt = self._stmt.order_by(desc(attr))
 
     async def _apply_filters(self, filters) -> None:
         filters = QueryUtils.parse_filters(self._M, filters)

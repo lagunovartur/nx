@@ -1,9 +1,8 @@
 import operator
-
 import sqlalchemy as sa
 
-
 class QueryUtils:
+
     @staticmethod
     def parse_filters(model, filters: dict):
         operators = {
@@ -30,18 +29,20 @@ class QueryUtils:
         return m_filters
 
     @staticmethod
-    def apply_search(stmt, search: str, fields):
-        search_parts = search.split()
+    def parse_sort(model, order: list[str]):
 
-        tsvector = sa.func.to_tsvector(
-            "russian",
-            sa.func.concat_ws(" ", *fields),
-        )
+        m_order = []
+        operators = {
+            "asc": sa.asc,
+            "desc": sa.desc,
+        }
 
-        tsquery = sa.func.to_tsquery(
-            "russian", " & ".join(map(lambda part: part + ":*", search_parts))
-        )
+        for order_item in order:
+            field, sep, op = order_item.partition("__")
+            field = getattr(model, field, None)
+            if field is None:
+                continue
+            op = operators.get(op) or sa.asc
+            m_order.append(op(field))
 
-        rank = sa.func.ts_rank(tsvector, tsquery)
-
-        return stmt.filter(tsvector.op("@@")(tsquery)).order_by(rank.desc())
+        return m_order

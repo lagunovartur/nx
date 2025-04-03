@@ -1,5 +1,6 @@
 import datetime as dt
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from enum import StrEnum
 
 from pydantic import ConfigDict
 
@@ -15,6 +16,7 @@ from ..svc.crud.types_ import BaseLP
 class BaseLead(BaseModel):
     _model = m.Lead
     comment: str | None = None
+    name: str
 
 
 class LeadBase(BaseLead):
@@ -30,6 +32,7 @@ class NewLead(BaseLead):
         json_schema_extra={
             "examples": [
                 {
+                    "name": "заявка на покупку",
                     "id": "94203c3e-2a94-4638-ae60-77a9a875542d",
                     "user_id": "05095dd9-57d2-4911-9b1d-638a60bdd653",
                     "comment": "Обслуживаем что то",
@@ -43,6 +46,7 @@ class NewLead(BaseLead):
 
 class EditLead(BaseLead):
     id: UUID
+    name: str | None = None
     user_id: UUID | None = None
     status: m.LeadStatus | None = None
 
@@ -63,6 +67,12 @@ class Lead(LeadBase):
     user: UserBase
 
 
+class ListOrder(StrEnum):
+    created_at = "created_at__desc"
+    name = "name__asc"
+
+
 @dataclass
 class LeadLP(BaseLP):
     user_id__in: list[UUID] | None = None
+    order: list[ListOrder] = field(default_factory=list)
