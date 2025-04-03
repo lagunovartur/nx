@@ -1,4 +1,4 @@
-from fr_lib.exc.http import ExcHttp
+from nx_api.exc import ExcHttp
 
 
 class ExcNotAuth(ExcHttp):

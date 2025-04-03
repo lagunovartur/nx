@@ -1,4 +1,4 @@
-from nx_api.errors.http import ExcHttp
+from nx_api.exc import ExcHttp
 
 
 class ExcAccessTokenExpired(ExcHttp):

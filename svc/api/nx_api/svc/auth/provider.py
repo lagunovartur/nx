@@ -5,11 +5,9 @@ from passlib.context import CryptContext
 from .exc import ExcRefreshTokenNotSent, ExcAccessTokenNotSent
 from .guard import AuthGuard
 from .ia.login import LoginIA
-from .ia.verify_email import VerifyEmailIA
 from .ia.logout import LogoutIA
 from .ia.refresh_tokens import RefreshTokensIA
 from .ia.register import RegisterIA
-from .ia.verify_email_end import VerifyEmailEndIA
 from .pwd_crypt import PwdCrypt, IPwdCrypt
 from .reject_if_auth import RejectIfAuth
 from .svc.session.ia.open import OpenSessIA
@@ -59,12 +57,10 @@ class AuthProv(Provider):
     fs = provide_all(
         LoginIA,
         RegisterIA,
-        VerifyEmailIA,
         OpenSessIA,
         CloseSessIA,
         LogoutIA,
         RefreshTokensIA,
-        VerifyEmailEndIA,
         RejectIfAuth,
     )
 

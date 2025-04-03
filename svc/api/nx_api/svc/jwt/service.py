@@ -5,7 +5,7 @@ import jwt
 from attr import define
 from fastapi import Response
 
-from nx_api.errors.http import ExcHttp
+from nx_api.exc import ExcHttp
 from nx_api.svc.jwt.abstract import IJwtSvc, IJwtSetter
 from nx_api.svc.jwt.config import JwtConfig
 from nx_api.svc.jwt.errors import ExcAccessTokenExpired, ExcRefreshTokenExpired

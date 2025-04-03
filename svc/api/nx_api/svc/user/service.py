@@ -3,9 +3,10 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 import nx_api.dto as d
 import nx_api.infra.db.models as m
-from nx_api.svc.crud import ListSvc
-from nx_api.svc.crud import BaseLP
 from sqlalchemy import or_
+
+from nx_api.svc.crud.list_svc import ListSvc
+from nx_api.svc.crud.types_ import BaseLP
 
 
 @define
@@ -19,8 +20,6 @@ class UserList(ListSvc[d.User, m.User, BaseLP]):
         elif search.isalnum():
             self._stmt = self._stmt.filter(
                 or_(
-                    self._M.first_name.ilike(f"%{search}%"),
-                    self._M.last_name.ilike(f"%{search}%"),
                     self._M.email.ilike(f"%{search}%"),
                 )
             )
