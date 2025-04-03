@@ -2,7 +2,7 @@ import os
 from argparse import ArgumentParser, Namespace
 from pathlib import Path
 
-from abs import Command
+from abstract import Command
 from config import config
 from runner import run
 
@@ -25,9 +25,11 @@ class InLink(Command):
         return f'ln -s {src} {dst}'
 
     def add_args(self, parser: ArgumentParser) -> None:
-        parser.add_argument('name', nargs='?', default='mg', help='alo')
+        parser.add_argument('name', nargs='?', default=config.cli_cmd, help='alo')
+
 
 class Init(Command):
+    """in-link | in_hook"""
 
     def __call__(self, args: Namespace):
         in_link(args)
@@ -35,11 +37,6 @@ class Init(Command):
 
     def add_args(self, parser: ArgumentParser) -> None:
         parser.add_argument('name', nargs='?', default='fr', help='alo')
-
-
-in_link = InLink()
-init = Init()
-
 
 
 @run()
@@ -50,7 +47,6 @@ def in_hook():
     dst = config.git_root_dir.joinpath('.git/hooks')
 
     return f'cp {src}/* {dst}'
-
 
 def in_unhook():
     """set git hooks"""
@@ -65,6 +61,9 @@ def in_unhook():
         print(dst_file)
         os.unlink(dst_file)
 
+
+in_link = InLink()
+init = Init()
 
 __all__ = [
     'init',

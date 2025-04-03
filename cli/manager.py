@@ -1,7 +1,7 @@
 import argparse
 from collections.abc import Callable
 
-from abs import Command
+from abstract import Command
 
 
 

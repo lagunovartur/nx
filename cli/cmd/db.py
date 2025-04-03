@@ -2,7 +2,7 @@ import datetime as dt
 import os
 from argparse import Namespace, ArgumentParser
 from config import config
-from abs import Command
+from abstract import Command
 from runner import run
 
 
@@ -28,6 +28,7 @@ def db_dump():
     """
 
 class DbRestore(Command):
+    """db < dump_file"""
 
     @run(from_env='db', execute=True)
     def __call__(self, args: Namespace):
@@ -53,6 +54,8 @@ class DbRestore(Command):
             psql -U $POSTGRES_USERNAME -c "CREATE DATABASE $POSTGRES_DATABASE" &&
             psql -U $POSTGRES_USERNAME -d $POSTGRES_DATABASE < {dump_file}'
         """
+
+
 
     def add_args(self, parser: ArgumentParser) -> None:
         parser.add_argument('dump', help='дамп для восстановления')

@@ -1,6 +1,6 @@
 from argparse import ArgumentParser, Namespace
 
-from abs import Command
+from abstract import Command
 from runner import run
 
 @run(from_env='compose')

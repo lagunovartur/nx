@@ -1,31 +1,23 @@
-from typing import TYPE_CHECKING, List
+from typing import TYPE_CHECKING
 
-from sqlalchemy import String
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+import sqlalchemy as sa
+import sqlalchemy.orm as orm
+from sqlalchemy.orm import mapped_column
 
 from .base import Base
-from .mixins import UuidPk
-from .mixins.timestamp import Timestamp
-from .user_chat import user_chat
+from nx_api.infra.db.models.mixins import UuidPk, Timestamp
 
 if TYPE_CHECKING:
-    from .chat import Chat
-    from .message import Message
+    from .auth_sess import AuthSess
 
 
 class User(Base, UuidPk, Timestamp):
-    first_name: Mapped[str] = mapped_column(String(50), nullable=False)
-    last_name: Mapped[str | None] = mapped_column(String(50), nullable=True)
-    password: Mapped[str] = mapped_column(String(60), nullable=True)
-    email: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
-    phone: Mapped[str] = mapped_column(String(11), unique=True, nullable=False)
-    chats: Mapped[List["Chat"]] = relationship(
-        "Chat", secondary=user_chat, back_populates="users"
-    )
-    messages: Mapped[List["Message"]] = relationship(
-        back_populates="sender", lazy="noload"
-    )
 
+    email: orm.Mapped[str | None] = orm.mapped_column(sa.String(50), unique=True)
+    phone: orm.Mapped[str | None] = orm.mapped_column(sa.String(11), unique=True)
+    password: orm.Mapped[str] = mapped_column(sa.String(60), nullable=True)
+    email_verified: orm.Mapped[bool] = mapped_column(sa.Boolean, nullable=False, server_default=sa.text("false"))
 
-class CurrentUser(User):
-    __abstract__ = True
+    sessions: orm.Mapped[list["AuthSess"]] = orm.relationship(
+        back_populates="user", lazy="noload"
+    )

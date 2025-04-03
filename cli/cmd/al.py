@@ -1,9 +1,9 @@
-from abs import Command
+from abstract import Command
 from runner import run
 from argparse import ArgumentParser, Namespace
 
 
-@run(from_env='api')
+@run(from_env='db', execute=True)
 def al(*args):
     """alembic"""
     return f'alembic {" ".join(args)}'
@@ -11,7 +11,7 @@ def al(*args):
 class AlRev(Command):
     """alembic revision --autogenerate"""
 
-    @run(from_env='api')
+    @run(from_env='db', execute=True)
     def __call__(self, args: Namespace):
         return f'alembic revision --autogenerate -m {args.revision}'
 
@@ -21,7 +21,7 @@ class AlRev(Command):
 class AlUp(Command):
     """alembic upgrade"""
 
-    @run(from_env='api')
+    @run(from_env='db', execute=True)
     def __call__(self, args: Namespace):
         return f'alembic upgrade {args.revision}'
 
@@ -31,7 +31,7 @@ class AlUp(Command):
 class AlDown(Command):
     """alembic downgrade"""
 
-    @run(from_env='api')
+    @run(from_env='db', execute=True)
     def __call__(self, args: Namespace):
         return f'alembic downgrade {args.revision}'
 

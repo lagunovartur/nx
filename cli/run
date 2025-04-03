@@ -2,13 +2,13 @@
 import os
 import sys
 
-from commands.al import al, al_rev, al_up, al_down
-from commands.chk import chk_style, chk_mypy, chk, chk_test
-from commands.db import db_dump, db_restore, db_shell
-from commands.dc import dc, dc_attach
-from commands.fmt import fmt
-from commands.git import git
-from commands.init import in_hook, in_unhook, init, in_link
+from cmd.al import al, al_rev, al_up, al_down
+from cmd.chk import chk_style, chk_mypy, chk, chk_test
+from cmd.db import db_dump, db_restore, db_shell
+from cmd.dc import dc, dc_attach
+from cmd.fmt import fmt
+from cmd.git import git
+from cmd.init import in_hook, in_unhook, init, in_link
 from manager import CommandManager
 
 

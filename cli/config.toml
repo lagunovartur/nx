@@ -1,6 +1,10 @@
+[cmd]
+cli = 'fr'
+
 [path]
 compose = 'svc/docker-compose.yml'
 db_dump = '/bitnami/postgresql/dumps'
 
 [svc_src]
-api = ['mg_api', 'tests']
+api = ['fr_api', 'tests']
+db = ['fr_db']

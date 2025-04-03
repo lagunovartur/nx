@@ -44,5 +44,9 @@ class Config:
     def db_dump_dir(self) -> Path:
         return Path(self._config['path']['db_dump'])
 
+    @property
+    def cli_cmd(self) -> str:
+        return self._config['cmd']['cli']
+
 
 config = Config()
