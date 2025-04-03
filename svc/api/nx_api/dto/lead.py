@@ -26,7 +26,7 @@ class LeadBase(BaseLead):
 
 class NewLead(BaseLead):
     id: UUID | None = None
-    user_id: UUID
+    user_id: UUID | None = None
 
     model_config = ConfigDict(
         json_schema_extra={
@@ -34,7 +34,6 @@ class NewLead(BaseLead):
                 {
                     "name": "заявка на покупку",
                     "id": "94203c3e-2a94-4638-ae60-77a9a875542d",
-                    "user_id": "05095dd9-57d2-4911-9b1d-638a60bdd653",
                     "comment": "Обслуживаем что то",
                 },
             ]
