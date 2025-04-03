@@ -1,12 +1,11 @@
-from fr_lib.svc.jwt.abstract import IJwtSvc, IJwtSetter
-from fr_lib.utils.result import Result
-import fr_db.models as m
 from attrs import define
 from sqlalchemy.ext.asyncio import AsyncSession
-
+import nx_api.infra.db.models as m
 import nx_api.repo as r
-from fr_lib.svc.jwt.schemas import RefreshToken
+from nx_api.svc.jwt.schemas import RefreshToken
 from nx_api.svc.auth.svc.session.ia.close import CloseSessIA
+from nx_api.svc.jwt.abstract import IJwtSvc, IJwtSetter
+from nx_api.utils.result import Result
 
 
 @define

@@ -6,10 +6,14 @@ from pydantic import BeforeValidator
 
 
 def _validator(value: str) -> str:
-    regex = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
-    if not re.match(regex, value):
+    if not is_email(value):
         raise ValueError("Invalid email format")
     return value.lower()
+
+
+def is_email(value: str) -> bool:
+    regex = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+    return bool(re.match(regex, value))
 
 
 Email = Annotated[

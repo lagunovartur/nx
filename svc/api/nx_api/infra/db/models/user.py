@@ -12,9 +12,9 @@ if TYPE_CHECKING:
 
 
 class User(Base, UuidPk, Timestamp):
-    email: orm.Mapped[str | None] = orm.mapped_column(sa.String(50), unique=True)
-    phone: orm.Mapped[str | None] = orm.mapped_column(sa.String(11), unique=True)
-    password: orm.Mapped[str] = mapped_column(sa.String(60), nullable=True)
+    email: orm.Mapped[str] = orm.mapped_column(sa.String(50), unique=True, nullable=False)
+    phone: orm.Mapped[str] = orm.mapped_column(sa.String(11), unique=True, nullable=False)
+    password: orm.Mapped[str] = mapped_column(sa.String(60), nullable=False)
     email_verified: orm.Mapped[bool] = mapped_column(
         sa.Boolean, nullable=False, server_default=sa.text("false")
     )

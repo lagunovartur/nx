@@ -1,7 +1,8 @@
 from attrs import define
-from fr_lib.utils.result import Result
-from fr_lib.svc.jwt.schemas import RefreshToken
+
 from nx_api.svc.auth.svc.session.ia.close import CloseSessIA
+from nx_api.utils.result import Result
+from nx_api.svc.jwt.schemas import RefreshToken
 
 
 @define

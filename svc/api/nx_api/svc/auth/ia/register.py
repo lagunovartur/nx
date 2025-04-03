@@ -1,7 +1,8 @@
 from attrs import define
 from sqlalchemy.ext.asyncio import AsyncSession
-import nx_api.dto.user as d
+import nx_api.dto as d
 import nx_api.repo as r
+import nx_api.infra.db.models as m
 from nx_api.svc.auth.pwd_crypt import IPwdCrypt
 
 
@@ -11,12 +12,10 @@ class RegisterIA:
     _db_sess: AsyncSession
     _crypt: IPwdCrypt
 
-    async def __call__(self, dto: d.RegUser) -> m.User:
+    async def __call__(self, dto: d.NewUser) -> m.User:
         user = await self._user_repo.add(
-            is_super=True,
             password=self._crypt.hash(dto.password),
             **dto.model_dump(exclude={"password"}),
         )
-        await self._db_sess.flush()
         await self._db_sess.commit()
         return user
