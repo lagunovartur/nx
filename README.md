@@ -1,124 +1,124 @@
 # cli
 ## help по cli
 ```shell
-mg -h
+nx -h
 ```
 
 ## Инициализация
 Устанавливает гит хук на пуш, выполняющий test, mypy, ruff проверки при коммите.
 
-Делает глобально доступным cli проекта по имени mg.
+Делает глобально доступным cli проекта по имени nx.
 ```shell
 sudo ./cli/run in
 ```
 
-### Делает глобально доступным cli проекта по имени mg. Создает sim link на ./cli/run в /usr/local/bin
+### Делает глобально доступным cli проекта по имени nx. Создает sim link на ./cli/run в /usr/local/bin
 ```shell
 sudo ./cli/run in-link
 ```
 
 ### Устанавливает гит хук на пуш, выполняющий test, mypy, ruff, black проверки при коммите.
 ```shell
-sudo mg in-hook
+sudo nx in-hook
 ```
 
 ### Cнимает гит хук на пуш, выполняющий test, mypy, ruff, black проверки при коммите.
 ```shell
-mg in-unhook
+nx in-unhook
 ```
 
 ## docker compose
-### mg dc ... - глобально доступный alias на докер композ проекта
-### mg dc-attach <имя сервиса> подключение к контейнеру сервиса
+### nx dc ... - глобально доступный alias на докер композ проекта
+### nx dc-attach <имя сервиса> подключение к контейнеру сервиса
 ### подключение к контейнеру базы
 ```shell
-mg dc-attach db
+nx dc-attach db
 ```
 ### подключение к контейнеру api
 ```shell
-mg dc-attach api
+nx dc-attach api
 ```
 
 ### Запуск проекта
 ```shell
-mg dc up -d
+nx dc up -d
 ```
 
 ### Стоп проекта
 ```shell
-mg dc down
+nx dc down
 ```
 
 ### Запуск базы
 ```shell
-mg dc up -d db
+nx dc up -d db
 ```
 
 ### Стоп базы
 ```shell
-mg dc up -d down
+nx dc up -d down
 ```
 
 ## git
-### mg git - глобально доступный alias на git
+### nx git - глобально доступный alias на git
 ### git статус
 ```shell
-mg git status
+nx git status
 ```
 
 ## alembic
-### mg al ... - глобально доступный alias на alembic
+### nx al ... - глобально доступный alias на alembic
 ### История миграций:
 ```shell
-mg al history
+nx al history
 ```
 ### al-rev <имя миграции> - создание миграции
 ### al-up <миграция | none> - апгрейд до head или до конкретной миграции или до n следующей миграции
 ```shell
-mg al-up
+nx al-up
 ```
 #### al-down <миграция | none> - даунгрейд -1 или до конкретной миграции или до n предыдущей миграции
 ```shell
-mg al-down
+nx al-down
 ```
 
 ## Проверки chk
 ### Тесты
 ```shell
-mg chk-test
+nx chk-test
 ```
 
 ### Mypy
 ```shell
-mg chk-mypy
+nx chk-mypy
 ```
 ### Линтеры ruff
 ```shell
-mg chk-style
+nx chk-style
 ```
 
 ## Форматирование
 Форматирование ruff
 ```shell
-mg fmt
+nx fmt
 ```
 
 ## База
 ### Подключение к базе в контейнере по psql
 ```shell
-mg db-shell
+nx db-shell
 ```
 ### Дамп базы project_root/db/dump
 ```shell
-mg db-dump
+nx db-dump
 ```
 ### Восстановление базы до n дампа, по умолчанию до последнего -1
 ```shell
-mg db-restore
+nx db-restore
 ```
 ### Сброс тестовой базы, удаляет public схему, создает ее заново, применяет миграции
 ```shell
-mg db-reset_test
+nx db-reset_test
 ```
 
 # Сервисы
