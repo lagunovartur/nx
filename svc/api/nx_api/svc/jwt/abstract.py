@@ -1,14 +1,16 @@
 from abc import ABC, abstractmethod
 from typing import TypeVar
 from uuid import UUID
-from nx_api.svc.jwt.schemas import JwtPair, RefreshToken, AccessToken, JwtToken
 
-T = TypeVar("T", bound=JwtToken)
+from nx_api.svc.jwt.schemas import JwtToken, JwtPair, RefreshToken, AccessToken
+
+T = TypeVar('T', bound=JwtToken)
 
 
 class IJwtSvc(ABC):
+
     @abstractmethod
-    def token_pair(self, sub: UUID, **kwargs) -> JwtPair:
+    def token_pair(self, sub: UUID, cid: int, **kwargs) -> JwtPair:
         pass
 
     @abstractmethod
@@ -21,6 +23,7 @@ class IJwtSvc(ABC):
 
 
 class IJwtSetter:
+
     @abstractmethod
     def set(self, token_pair: JwtPair) -> None:
         pass
@@ -28,3 +31,5 @@ class IJwtSetter:
     @abstractmethod
     def unset(self) -> None:
         pass
+
+

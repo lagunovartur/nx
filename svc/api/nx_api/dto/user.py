@@ -24,8 +24,9 @@ class NewUser(BaseUser):
         json_schema_extra={
             "examples": [
                 {
-                    "email": "lagunovartur@gmail.com",
-                    "phone": "79124402323"
+                    "email": "simonov@example.com",
+                    "phone": "78524569685",
+                    "password": "Qwerty!1"
                 },
             ]
         }
