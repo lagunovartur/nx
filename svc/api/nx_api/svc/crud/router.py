@@ -19,59 +19,53 @@ def crud_router(SVC: Type[CrudSvc]):
 
     router = APIRouter(
         route_class=DishkaRoute,
-        prefix=f"/{prefix}", tags=[prefix],
+        prefix=f"/{prefix}",
+        tags=[prefix],
     )
 
     async def create(
-            dto: C,
-            svc: Depends[SVC],
+        dto: C,
+        svc: Depends[SVC],
     ):
         return await svc.create(dto)
 
-    router.add_api_route(
-        path='',
-        endpoint=create,
-        methods=['POST'],
-        response_model=R
-    )
+    router.add_api_route(path="", endpoint=create, methods=["POST"], response_model=R)
 
     async def get(
-            id: UUID,
-            svc: Depends[SVC],
+        id: UUID,
+        svc: Depends[SVC],
     ):
         return await svc.get(id)
 
     router.add_api_route(
         path="/{id}",
         endpoint=get,
-        methods=['GET'],
+        methods=["GET"],
         response_model=R,
     )
 
     if not U is NoneType:
+
         async def update(
-                dto: U,
-                svc: Depends[SVC],
+            dto: U,
+            svc: Depends[SVC],
         ):
             return await svc.update(dto)
 
         router.add_api_route(
-            path=f"",
-            endpoint=update,
-            methods=['PUT'],
-            response_model=R
+            path=f"", endpoint=update, methods=["PUT"], response_model=R
         )
 
     async def delete(
-            id: UUID,
-            svc: Depends[SVC],
+        id: UUID,
+        svc: Depends[SVC],
     ):
         return await svc.delete(id)
 
     router.add_api_route(
         path="/{id}",
         endpoint=delete,
-        methods=['DELETE'],
+        methods=["DELETE"],
     )
 
     return router
@@ -81,15 +75,11 @@ def add_list_route(router: APIRouter, SVC: Type[ListSvc]) -> None:
     R, M, LP = SVC.__orig_bases__[0].__args__
 
     async def list(
-            params: Annotated[LP, Query()],
-            svc: Depends[SVC],
+        params: Annotated[LP, Query()],
+        svc: Depends[SVC],
     ):
         return await svc(params)
 
     router.add_api_route(
-        path=f"",
-        endpoint=list,
-        methods=['GET'],
-        response_model=ListSlice[R]
+        path=f"", endpoint=list, methods=["GET"], response_model=ListSlice[R]
     )
-    

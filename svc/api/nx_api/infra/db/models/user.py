@@ -12,11 +12,12 @@ if TYPE_CHECKING:
 
 
 class User(Base, UuidPk, Timestamp):
-
     email: orm.Mapped[str | None] = orm.mapped_column(sa.String(50), unique=True)
     phone: orm.Mapped[str | None] = orm.mapped_column(sa.String(11), unique=True)
     password: orm.Mapped[str] = mapped_column(sa.String(60), nullable=True)
-    email_verified: orm.Mapped[bool] = mapped_column(sa.Boolean, nullable=False, server_default=sa.text("false"))
+    email_verified: orm.Mapped[bool] = mapped_column(
+        sa.Boolean, nullable=False, server_default=sa.text("false")
+    )
 
     sessions: orm.Mapped[list["AuthSess"]] = orm.relationship(
         back_populates="user", lazy="noload"

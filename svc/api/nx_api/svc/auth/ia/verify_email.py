@@ -21,9 +21,7 @@ class VerifyEmailIA:
         if not user:
             return
 
-        token = await self._token_svc.encode(
-            EmailReq(email=user.email)
-        )
+        token = await self._token_svc.encode(EmailReq(email=user.email))
 
         confirm_url = self._config.API_URL / "auth" / "verify" / "email" / token
 

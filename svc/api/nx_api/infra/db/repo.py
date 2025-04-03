@@ -27,7 +27,9 @@ class Repo(Generic[Model]):
         self._db_sess.add(obj)
         return obj
 
-    async def get_or_add(self, *, defaults: dict[str, Any] | None = None, **filters) -> Tuple[Model, bool]:
+    async def get_or_add(
+        self, *, defaults: dict[str, Any] | None = None, **filters
+    ) -> Tuple[Model, bool]:
         defaults = defaults or {}
         obj = await self.one_or_none(**filters)
         if obj:

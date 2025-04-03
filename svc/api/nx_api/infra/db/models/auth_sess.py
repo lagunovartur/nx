@@ -13,7 +13,6 @@ if TYPE_CHECKING:
     from nx_api.infra.db.models.user import User
 
 
-
 class SessStatus(Enum):
     ACTIVE = auto()
     COMPLETED = auto()
@@ -21,7 +20,6 @@ class SessStatus(Enum):
 
 
 class AuthSess(Base, UuidPk, Timestamp):
-
     tokens: orm.Mapped[list["RefreshToken"]] = orm.relationship(
         back_populates="session", passive_deletes=True
     )

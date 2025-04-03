@@ -1,9 +1,9 @@
 from typing import Generic, TypeVar, Union
 
-T = TypeVar('T')
+T = TypeVar("T")
+
 
 class Result(Generic[T]):
-
     def __init__(self, *, value: T | None = None, exc: Exception | None = None) -> None:
         self._value = value
         self._exc = exc

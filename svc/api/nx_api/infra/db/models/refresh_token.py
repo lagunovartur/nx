@@ -12,8 +12,8 @@ from nx_api.infra.db.models.mixins import UuidPk, CreatedAt
 if TYPE_CHECKING:
     from nx_api.infra.db.models.auth_sess import AuthSess
 
-class RefreshToken(Base, UuidPk, CreatedAt):
 
+class RefreshToken(Base, UuidPk, CreatedAt):
     session_id: orm.Mapped[UUID] = orm.mapped_column(
         ForeignKey("auth_sess.id", ondelete="CASCADE")
     )

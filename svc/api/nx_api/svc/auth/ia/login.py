@@ -29,4 +29,3 @@ class LoginIA:
             raise ExcInvalidCreds()
 
         return user
-

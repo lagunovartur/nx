@@ -11,4 +11,3 @@ class RejectIfAuth:
     def __attrs_post_init__(self):
         if self._access_token:
             raise ExcAlreadyAuth()
-

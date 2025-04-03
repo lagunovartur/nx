@@ -54,7 +54,6 @@ class AuthProv(Provider):
 
     pwd_crypt = provide(PwdCrypt, scope=Scope.APP, provides=IPwdCrypt)
 
-
     guard = provide(AuthGuard, scope=Scope.APP)
 
     fs = provide_all(

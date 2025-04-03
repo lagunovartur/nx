@@ -1,5 +1,6 @@
 from fr_lib.exc.http import ExcHttp
 
+
 class ExcNotAuth(ExcHttp):
     message = "Пользователь не авторизован"
     status_code = 401

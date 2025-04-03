@@ -13,7 +13,6 @@ class VerifyEmailEndIA:
     _db_sess: AsyncSession
 
     async def __call__(self, token: str) -> None:
-
         token = await self._token_svc.decode(token, EmailReq)
         email = token.payload.email
         user = await self._user_repo.one(email=email)

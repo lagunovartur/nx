@@ -3,7 +3,6 @@ import operator
 import sqlalchemy as sa
 
 
-
 class QueryUtils:
     @staticmethod
     def parse_filters(model, filters: dict):
@@ -46,6 +45,3 @@ class QueryUtils:
         rank = sa.func.ts_rank(tsvector, tsquery)
 
         return stmt.filter(tsvector.op("@@")(tsquery)).order_by(rank.desc())
-
-
-
