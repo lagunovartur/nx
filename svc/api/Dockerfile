@@ -13,8 +13,8 @@ RUN curl -sSL https://install.python-poetry.org | POETRY_HOME=/opt/poetry python
 
 COPY pyproject.toml poetry.lock ./
 
-ARG BE_INSTALL_DEV='false'
-RUN bash -c "if [ $BE_INSTALL_DEV == 'true' ] ; \
+ARG AP_INSTALL_DEV='false'
+RUN bash -c "if [ $AP_INSTALL_DEV == 'true' ] ; \
     then poetry install --no-root ;  \
     else poetry install --no-root --only main ; fi"
 
