@@ -1,5 +1,5 @@
 from typing import Any, Generic, Sequence, Tuple, Type, TypeVar, overload
-
+from sqlalchemy.inspection import inspect
 import sqlalchemy as sa
 from attrs import define
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -22,13 +22,12 @@ class Repo(Generic[Model]):
 
     # CREATE
     async def add(self, **kw) -> Model:
-        obj = self.model(**kw)
+        obj = self.model()
+        self._set_attrs(obj, **kw)
         self._db_sess.add(obj)
         return obj
 
-    async def get_or_create(
-        self, *, defaults: dict[str, Any] | None = None, **filters
-    ) -> Tuple[Model, bool]:
+    async def get_or_add(self, *, defaults: dict[str, Any] | None = None, **filters) -> Tuple[Model, bool]:
         defaults = defaults or {}
         obj = await self.one_or_none(**filters)
         if obj:
@@ -77,15 +76,6 @@ class Repo(Generic[Model]):
         result = await self._db_sess.scalar(stmt)
         return result or 0
 
-    async def filter(
-        self, opts: Sequence[ORMOption] | None = None, *filters
-    ) -> Sequence[Model]:
-        opts = opts or []
-        stmt = sa.select(self.model).options(*opts)
-        if filters:
-            stmt = stmt.filter(*filters)
-        return (await self._db_sess.scalars(stmt)).all()
-
     async def filter_by(
         self, opts: Sequence[ORMOption] | None = None, **filters
     ) -> Sequence[Model]:
@@ -104,29 +94,30 @@ class Repo(Generic[Model]):
     async def update(self, pk: PK, **kw) -> Model: ...
 
     @overload
-    async def update(self, pk: Model, **kw) -> Model: ...
+    async def update(self, model: Model, **kw) -> Model: ...
 
     async def update(self, pk: Model | PK, **kw) -> Model:
         obj = pk if isinstance(pk, self.model) else await self.get(pk)
-
-        for key, value in kw.items():
-            setattr(obj, key, value)
-
+        self._set_attrs(obj, **kw)
         self._db_sess.add(obj)
-
         return obj
 
     # DELETE
 
     @overload
-    async def delete(self, pk: PK) -> None: ...
+    async def delete(self, pk: PK) -> Model: ...
 
     @overload
-    async def delete(self, pk: Model) -> None: ...
+    async def delete(self, pk: Model) -> Model: ...
 
-    async def delete(self, pk: Model | PK) -> None:
-        if isinstance(pk, self.model):
-            await self._db_sess.delete(pk)
-        else:
-            stmt = sa.delete(self.model).filter_by(id=pk)
-            await self._db_sess.execute(stmt)
+    async def delete(self, pk: Model | PK) -> Model:
+        obj = pk if isinstance(pk, self.model) else await self.get(pk)
+        await self._db_sess.delete(obj)
+        return obj
+
+    @staticmethod
+    def _set_attrs(obj: Model, **kw) -> None:
+        columns = inspect(obj).mapper.columns.keys()
+        for key, value in kw.items():
+            if key in columns:
+                setattr(obj, key, value)
