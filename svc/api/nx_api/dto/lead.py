@@ -22,6 +22,7 @@ class BaseLead(BaseModel):
 class LeadBase(BaseLead):
     id: UUID
     created_at: dt.datetime
+    status: m.LeadStatus
 
 
 class NewLead(BaseLead):
