@@ -9,7 +9,7 @@ services:
     build:
       context: ./api
       args:
-        BE_INSTALL_DEV: ${AP_INSTALL_DEV}
+        AP_INSTALL_DEV: ${AP_INSTALL_DEV}
     depends_on:
       - db
     volumes:

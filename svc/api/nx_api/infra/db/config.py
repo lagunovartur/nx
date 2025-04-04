@@ -2,14 +2,14 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class DbConfig(BaseSettings):
-    USER: str
-    PASS: str
-    HOST: str
-    PORT: int
-    NAME: str
-    ECHO: bool
-    POOL_SIZE: int
-    MAX_OVERFLOW: int
+    USER: str = 'postgres'
+    PASS: str = 'postgres'
+    HOST: str = 'localhost'
+    PORT: int = 5432
+    NAME: str = 'postgres'
+    ECHO: bool = False
+    POOL_SIZE: int = 64
+    MAX_OVERFLOW: int = 10
 
     @property
     def ASYNC_URL(self):
